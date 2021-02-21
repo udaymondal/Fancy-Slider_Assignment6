@@ -40,16 +40,17 @@ const getImages = (query) => {
 
 let slideIndex = 0;
 const selectItem = (event, img) => {
-  let element = event.target;
-  element.classList.add('added');
- 
-  let item = sliders.indexOf(img);
-  if (item === -1) {
-    sliders.push(img);
-  } else {
-    sliders.splice(deselect, 1);
-  }
-}
+    let element = event.target;
+    element.classList.toggle('added');
+
+    let item = sliders.indexOf(img);
+    if (item === -1) {
+        sliders.push(img);
+    } else {
+        let deselect = sliders.indexOf(img);
+        sliders.splice(deselect, 1);
+    }
+};
 var timer
 const createSlider = () => {
   // check slider image length
