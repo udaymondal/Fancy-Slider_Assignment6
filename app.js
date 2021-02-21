@@ -17,6 +17,7 @@ const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 const showImages = (images) => {
   imagesArea.style.display = 'block';
   gallery.innerHTML = '';
+  toggleSpinner();
   // show gallery title
   galleryHeader.style.display = 'flex';
   images.forEach(image => {
@@ -29,11 +30,13 @@ const showImages = (images) => {
 }
 
 const getImages = (query) => {
-  fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
-    .then(response => response.json())
-    .then(data => showImages(data.hitS))
-    .catch(err => console.log(err))
-}
+  setTimeout(() => {
+      fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
+          .then((response) => response.json())
+          .then((data) => showImages(data.hits))
+          .catch((err) => console.log(err));
+  }, 3000);
+};
 
 let slideIndex = 0;
 const selectItem = (event, img) => {
@@ -44,14 +47,14 @@ const selectItem = (event, img) => {
   if (item === -1) {
     sliders.push(img);
   } else {
-    alert('Hey, Already added !')
+    sliders.splice(deselect, 1);
   }
 }
 var timer
 const createSlider = () => {
   // check slider image length
   if (sliders.length < 2) {
-    alert('Select at least 2 image.')
+    alert('Select at least 2 image.');
     return;
   }
   // crate slider previous next area
