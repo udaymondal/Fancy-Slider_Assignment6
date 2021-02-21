@@ -54,8 +54,8 @@ const selectItem = (event, img) => {
 var timer
 const createSlider = () => {
   // check slider image length
-  if (sliders.length < 2) {
-    alert('Select at least 2 image.');
+  if (sliders.length <= 0) {
+    //alert('Select at least 2 image.');
     return;
   }
   // crate slider previous next area
