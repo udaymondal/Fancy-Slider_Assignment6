@@ -89,11 +89,10 @@ const createSlider = () => {
 // change slider index 
 const changeItem = index => {
   changeSlide(slideIndex += index);
-}
+};
 
 // change slide item
 const changeSlide = (index) => {
-
   const items = document.querySelectorAll('.slider-item');
   if (index < 0) {
     slideIndex = items.length - 1
@@ -112,14 +111,37 @@ const changeSlide = (index) => {
   items[index].style.display = "block"
 }
 
+const search = document.getElementById('search');
+const displayImg = () => {
+    document.querySelector('.main').style.display = 'none';
+    clearInterval(timer);
+    getImages(search.value);
+    sliders.length = 0;
+    toggleSpinner();
+};
+
 searchBtn.addEventListener('click', function () {
-  document.querySelector('.main').style.display = 'none';
-  clearInterval(timer);
-  const search = document.getElementById('search');
-  getImages(search.value)
-  sliders.length = 0;
-})
+    displayImg();
+});
+
+search.addEventListener('keyup', function (event) {
+    if (event.key === 'Enter') {
+        displayImg();
+    }
+});
 
 sliderBtn.addEventListener('click', function () {
-  createSlider()
-})
+    const duration = document.getElementById('duration').value || 1000;
+    if (duration < 0) {
+        alert('Please enter Valid Time');
+    } else {
+        createSlider();
+    }
+});
+
+const toggleSpinner = () => {
+    const spinner = document.getElementById('loading-spinner');
+    const imagesArea = document.querySelector('.images');
+    spinner.classList.toggle('d-none');
+    imagesArea.classList.toggle('d-none');
+};
